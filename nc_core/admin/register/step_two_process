@@ -1,0 +1,76 @@
+<?php
+	if(isset($_COOKIE['registration']))
+	{
+// Connects to your Database
+include("../includes/config/db_conn.php");
+
+//This code runs if the form has been submitted
+if (isset($_POST['submit'])) {
+
+//This makes sure they did not leave any fields blank
+if (!$_POST['username'] | !$_POST['pass'] | !$_POST['pass2'] | !$_POST['name'] | !$_POST['email'] ) {
+die('You did not complete all of the required fields');
+}
+
+// checks if the username is in use
+if (!get_magic_quotes_gpc()) {
+$_POST['username'] = addslashes($_POST['username']);
+}
+$usercheck = $_POST['username'];
+$check = mysql_query("SELECT username FROM users WHERE username = '$usercheck'")
+or die(mysql_error());
+$check2 = mysql_num_rows($check);
+
+//if the name exists it gives an error
+if ($check2 != 0) {
+die('Sorry, the username '.$_POST['username'].' is already in use.');
+}
+
+// this makes sure both passwords entered match
+if ($_POST['pass'] != $_POST['pass2']) {
+die('Your passwords did not match. ');
+}
+
+// here we encrypt the password and add slashes if needed
+$_POST['pass'] = md5($_POST['pass']);
+if (!get_magic_quotes_gpc()) {
+$username = addslashes($_POST['username']);
+$pass = addslashes($_POST['pass']);
+$name = addslashes($_POST['name']);
+$email = addslashes($_POST['email']);
+$location = addslashes($_POST['location']);
+$website = addslashes($_POST['website']);
+$image = addslashes($_POST['image']);
+$about = addslashes($_POST['about']);
+$css = addslashes($_POST['css']);
+}
+
+//Fills in blank fields with default valuee where applicable
+if($image == '')
+		{
+			$image = 'images/icons/no_picture.jpg';
+		}
+if($location == '')
+		{
+			$location = 'Location Unknown';
+		}
+if($website == '')
+		{
+			$website = 'catserveronline.net/profile-'.$username.'';
+		}
+		
+// now we insert it into the database
+$insert = "INSERT INTO users (username, password, name, email, location, website, image, about, css)
+VALUES ('$username','$pass','$name','$email','$location','$website','$image','$about','$css')";
+$add_member = mysql_query($insert);
+?>
+<h1>Registered</h1>
+<p>Thank you, you have registered - <a href="http://catserver.net/">you may now login</a>.</p>
+	<?php
+	}
+	}
+	else
+	{
+		echo 'Authentication failed. Begin registration process at http://catserver.net/register/';
+	}
+	?>

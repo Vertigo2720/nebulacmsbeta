@@ -1,0 +1,71 @@
+<?php
+	if(isset($_COOKIE['registration']))
+	{
+		?>
+		<form action="step_two_process.php" method="post">
+		<table border="0">
+		<tr><td>
+		Username:
+		<br />
+		<input type="text" name="username" maxlength="60" class="form" >
+		<br />
+		<br />
+		</td></tr>
+		<tr><td>
+		Password:
+		<br />
+		<input type="password" name="pass" maxlength="24" class="form" >
+		<br />
+		<br />
+		</td></tr>
+		<tr><td>
+		Confirm Password:
+		<br />
+		<input type="password" name="pass2" maxlength="24" class="form" >
+		<br />
+		<br />
+		</td></tr>
+		<tr><td>
+		Name:
+		<br />
+		<input type="text" name="name" maxlength="60" class="form" >
+		<br />
+		<br />
+		</td></tr>
+		<tr><td>
+		Email:
+		<br />
+		<input type="text" name="email" maxlength="60" class="form" >
+		<br />
+		<br />
+		Location (Optional):<br />
+		<input type="text" name="location" class="form" />
+		<br />
+		<br />
+		Website (do NOT include http://):<br />
+		<input type="text" name="website" class="form" />
+		<br />
+		<br />
+		Link an image to your profile (uploading not supported):<br />
+		<input type="text" name="image" class="form" />
+		<br />
+		<br />
+		A little about yourself (Optional):<br />
+		<textarea name="about" class="form_large" rows="10"></textarea>
+		<br />
+		<br />
+		<textarea style="display:none" name="css">        color:#FFF;
+			text-decoration:none;
+			font-style:normal;
+			font-family:Verdana, Geneva, sans-serif;
+			font-size:12px;</textarea>
+		</td></tr>
+		<tr><th colspan=2><input type="submit" name="submit" value="Register"></th></tr> </table>
+		</form>
+	<?php
+	}
+	else
+	{
+		echo 'Authentication failed. Begin registration process at http://catserveronline.net/register/';
+	}
+	?>

@@ -1,0 +1,14 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^([0-9a-zA-Z]+)$ index.php?cmd=$1 [L]
+RewriteRule ^profile-([0-9a-zA-Z]+)$ index.php?cmd=profile&user=$1 [L]
+RewriteRule ^page-([0-9a-zA-Z]+)$ index.php?cmd=pager&page=$1 [L]
+RewriteRule ^snippet-([0-9a-zA-Z]+)$ index.php?cmd=snipper&snippet=$1 [L]
+RewriteRule ^image-([0-9a-zA-Z]+)$ index.php?cmd=imager&image=$1 [L]
+RewriteRule ^gallery-([0-9a-zA-Z]+)$ index.php?cmd=gallery&gallery=$1 [L]
+RewriteRule ^blog-([0-9a-zA-Z]+)$ index.php?cmd=singlehome&id=$1 [L]
+RewriteRule ^error-([0-9a-zA-Z]+)$ index.php?cmd=notify&type=$1 [L]
+RewriteRule ^notify-([0-9a-zA-Z]+)$ index.php?cmd=notify&type=$1 [L]
+RewriteRule ^notify-([0-9a-zA-Z]+)-([0-9a-zA-Z]+)$ index.php?cmd=notify&type=$1&page=$2 [L]
+RewriteRule ^home-([0-9a-zA-Z]+)$ index.php?previous=$1 [L]
+RewriteRule ^rss.xml rss.php [L]

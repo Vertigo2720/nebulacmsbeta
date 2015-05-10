@@ -1,0 +1,98 @@
+/*Global*/
+body {
+	background-color:#000;
+	background:url(images/registration_bg.png) bottom right no-repeat fixed, url(images/bgpinstripes.png) repeat fixed;
+	overflow:hidden;
+	color:#FFF;
+	line-height:150%;
+	font-family:verdana;
+}
+.animate{
+	-moz-transition:all 0.4s ease 0.3s;
+	-webkit-transition:all 0.4s ease 0.3s;
+	-o-transition:all 0.4s ease 0.3s;
+}
+#slidingDiv{
+	top:100px;
+	position:relative;
+	margin:0 auto;
+	width:12800px;
+}
+#slidingDiv .contentBox {
+	box-shadow: 10px 10px 5px #000;
+	-moz-box-shadow: 5px 10px 5px #000;
+	-webkit-box-shadow: 10px 10px 5px #000;
+	width:700px;
+	height:350px;
+	padding:10px;
+}
+/*Step 1*/
+#step1{
+	margin-left:20%;
+	background:#333 url(../images/borderGradient.png) center no-repeat;
+}
+#step1Right{
+	float:right;
+	max-width:310px;
+}
+#step1Right ul{
+	top:10px;
+	left:25px;
+	position:relative;
+	width:285px;
+}
+#step1Right ul li{
+	margin-bottom:5px;
+}
+#step1Right .submitButton{
+	position:relative;
+	top:30px;
+}
+/*Step 2*/
+#step2{
+	position:relative;
+	top:-370px;
+	left:40%;
+	background:#333;
+}
+#step2Text{
+	position:relative;
+	width:300px;
+	top:100px;
+	text-align:center;
+}
+#step2Text p{
+	margin-bottom:5px;
+}
+/*Step 3*/
+#step3{
+	position:relative;
+	top:-740px;
+	left:60%;
+	background:#333 url(../images/borderGradient.png) center no-repeat;
+}
+#registerFormRight {
+	position:relative;
+	left:-10px;
+	float:right;
+	max-width:310px;
+}
+#registerFormLeft {
+	float:left;
+	max-width:310px;
+}
+#step3 .submitButton{
+	position:relative;
+	top:50px;
+	left:10px;
+}
+#step3 h1{
+	margin-bottom:15px;
+}
+/*Step 4*/
+#step4{
+	position:relative;
+	top:-1110px;
+	left:80%;
+	background:#333;
+}

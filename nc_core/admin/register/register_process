@@ -1,0 +1,37 @@
+<?php
+session_start();
+if(!empty($_POST['name']) && !empty($_POST['code']))
+{
+	// Connects to your Database
+	include("../includes/config/db_conn.php");
+	$i = 0;
+	$name = addslashes($_POST['name']);
+	$code1 = addslashes($_POST['code']);
+	$query="SELECT * from `register` WHERE `name` = '$name'";
+	$result = mysql_query($query);
+	if(mysql_num_rows($result))
+	{
+		$name = mysql_result($result,$i,"name");
+		$code2 = mysql_result($result,$i,"code");
+		?>
+		<?php
+		if ($code1 == $code2)
+		{
+			echo 'Authenticated! <a href="step_two.php">Click here to continue with registration.</a>';
+			$hour = time() + 3600;
+			setcookie("registration", $_POST['name'], $hour, '/');
+			$query2="DELETE FROM register WHERE id = '". $id."'";
+			mysql_query($query2);
+		}
+	}
+	else
+	{
+		echo 'Sorry, you are not in the database!';
+	}
+}
+else
+{
+	$_SESSION['notify'] = 'You did not complete all of the required fields';
+	header( 'Location: /register' );
+}
+?>
