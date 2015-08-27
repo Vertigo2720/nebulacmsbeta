@@ -954,34 +954,42 @@ function tagFinder($tags = false, $type = 'all')
 function regexFindCode($scan = null, $display = 'full')
 {
 	//Prerequisites
-	$regex = '/\[([\a-zA-Z0-9,: -\\/]+)\]/';
+	$regex = '/\[([\a-zA-Z0-9,: -\\/]+)\]/U';
 	$breakdownCode = function($matches)
 	{
+		$matches = array_filter($matches);
 		$match = $matches[1];
 		if(!empty($match))
 		{
+			$isFunction = explode(',', $match);
 			$display = 'full';
-			$functionRegex = '/([a-zA-Z]+)(\:)([a-zA-Z0-9:, -_\/"]+)/';
-			preg_match($functionRegex, $match, $isFunction);
 			
-			$bbcodeRegex = '/([a-zA-Z]+)/';
-			preg_match($bbcodeRegex, $match, $isBBCode);
+			//$bbcodeRegex = '/([a-zA-Z]+)/';
+			//preg_match($bbcodeRegex, $match, $isBBCode);
 			
-			$bbcodeCloseRegex = '/(\/)([a-zA-Z]+)/';
-			preg_match($bbcodeCloseRegex, $match, $isBBCodeClose);
+			//$bbcodeCloseRegex = '/(\/)([a-zA-Z]+)/';
+			//preg_match($bbcodeCloseRegex, $match, $isBBCodeClose);
 			//print_r($isBBCode);
 			if(!empty($isFunction))
 			{
-				$function = $isFunction[1];
-				$requested = explode(',',$isFunction[3]);
-				//print_r($requested);
-				$requested2 = $isFunction[3];
-				$matchedString = $isFunction[0];
+				$functionAr = explode(':', $isFunction[0]);
+				$function = $functionAr[0];
+				
+				if(count($isFunction) > 2)
+				{
+					$isFunction[0] = $functionAr[1];
+					$requested = $isFunction;
+				}
+				else
+				{
+					$requested = $functionAr[1];
+				}
+				$matchedString = serialize($isFunction);
 				if(function_exists($function) and in_array($function, allowForEmbed))
 				{
 					if($display == 'preview')
 					{
-						return $function($requested);
+						return $function($requested, $display);
 					}
 					elseif($display == 'full')
 					{
@@ -1116,7 +1124,7 @@ function autoCodeParse($type = 'image', $parameters = null)
 	if(in_array('gal', $gal) or in_array('parameters', $gal))
 	{
 		$gal = $gal[3];
-		$buildRequestString = $buildRequestString."AND `parameters` = '$gal' ";
+		$buildRequestString = $buildRequestString."AND `gallery` = '$gal' ";
 		$galRequest = "in parameters ".$gal." ";
 	}
 	//Check for and define user
@@ -1213,7 +1221,7 @@ function image($image = 0)
 		//"Enhanced" embedded image output (Auto Image ON)
 		if(in_array('auto', $image))
 		{
-			$image[] = "limit:0";
+			$image[] = "limit:1";
 			$returned = autoCodeParse('image', $image);
 			$result = databaseArray($returned['query']);
 			$imageError = $returned['error'];
